@@ -1,0 +1,76 @@
+{
+  "project": "X-Team Rebuild Screenshots Manifest",
+  "base_path": "file:///Users/amansingh/MERN/Dev0sphere/analysis/screenshots",
+  "routes": {
+    "homepage": {
+      "desktop": [
+        "homepage_desktop_1780589301329.png",
+        "homepage_desktop_bottom_1780589314110.png",
+        "homepage_top_1780588794612.png",
+        "homepage_top_1780589516375.png"
+      ],
+      "tablet": [
+        "homepage_tablet_1780589330892.png",
+        "homepage_tablet_bottom_1780589342240.png",
+        "homepage_tablet_bottom_2_1780589354891.png"
+      ],
+      "mobile": [
+        "homepage_mobile_1780589390595.png",
+        "homepage_mobile_mid_1780589405322.png",
+        "homepage_mobile_bottom_1780589419862.png"
+      ]
+    },
+    "about": {
+      "desktop": [
+        "about_desktop_1780589731289.png",
+        "about_desktop_1780589936178.png"
+      ],
+      "tablet": [
+        "about_tablet_1780589736473.png",
+        "about_tablet_1780589918869.png"
+      ],
+      "mobile": [
+        "about_mobile_1780589779512.png",
+        "about_mobile_1780589900646.png"
+      ]
+    },
+    "how_it_works": {
+      "desktop": [
+        "how_it_works_desktop_1780589826838.png"
+      ],
+      "tablet": [
+        "how_it_works_tablet_1780589843412.png"
+      ],
+      "mobile": [
+        "how_it_works_mobile_1780589861777.png"
+      ]
+    },
+    "careers": {
+      "desktop": [
+        "careers_desktop_1780589960825.png"
+      ],
+      "tablet": [
+        "careers_tablet_1780589979617.png"
+      ],
+      "mobile": [
+        "careers_mobile_1780589997119.png"
+      ]
+    },
+    "case_studies": {
+      "desktop": [
+        "case_studies_desktop_1780590036281.png"
+      ],
+      "tablet": [
+        "case_studies_tablet_1780590053447.png"
+      ],
+      "mobile": [
+        "case_studies_mobile_1780590072882.png"
+      ]
+    },
+    "footer_specific": {
+      "desktop": [
+        "footer_section_1780589575382.png"
+      ]
+    }
+  }
+}

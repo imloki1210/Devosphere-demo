@@ -1,0 +1,86 @@
+{
+  "project": "X-Team Rebuild",
+  "base_assets_domain": "https://engage.x-team.com",
+  "assets": {
+    "branding": [
+      {
+        "name": "X-Team Logo SVG",
+        "url": "https://x-team.com/hubfs/2024-assets/logo.svg",
+        "type": "svg/vector"
+      },
+      {
+        "name": "Instagram Logo Purple",
+        "url": "https://engage.x-team.com/hubfs/Brand%20(style%20guide%2c%20logos%2c%20custom%20images)/2024-assets/Instagram%20Logo%20Purple.png",
+        "type": "image/png"
+      },
+      {
+        "name": "Instagram Logo Gray",
+        "url": "https://engage.x-team.com/hubfs/Brand%20(style%20guide%2c%20logos%2c%20custom%20images)/2024-assets/Instagram%20Logo%20Gray.png",
+        "type": "image/png"
+      },
+      {
+        "name": "LinkedIn Logo Gray",
+        "url": "https://engage.x-team.com/hubfs/Brand%20(style%20guide%2c%20logos%2c%20custom%20images)/2024-assets/LinkedIn%20Logo%20Gray.png",
+        "type": "image/png"
+      }
+    ],
+    "ui_elements": [
+      {
+        "name": "Menu Hamburger Icon",
+        "url": "https://engage.x-team.com/hubfs/Brand%20(style%20guide%2c%20logos%2c%20custom%20images)/2024-assets/menu.svg",
+        "type": "svg/vector"
+      },
+      {
+        "name": "Front End Stack Icon",
+        "url": "https://engage.x-team.com/hubfs/Front%20End%20Icon.svg",
+        "type": "svg/vector"
+      },
+      {
+        "name": "Number 4 Timeline Asset",
+        "url": "https://engage.x-team.com/hubfs/Brand%20(style%20guide%2c%20logos%2c%20custom%20images)/2024-assets/Number-4--Streamline-Tabler.svg",
+        "type": "svg/vector"
+      }
+    ],
+    "background_graphics": [
+      {
+        "name": "CTA Section Chevron Background Banner",
+        "url": "https://engage.x-team.com/hubfs/Brand%20(style%20guide%2c%20logos%2c%20custom%20images)/2024-assets/cta_bg_sm.png",
+        "type": "image/png"
+      }
+    ],
+    "illustrative_graphics": [
+      {
+        "name": "Single Woman Actions Setting Graphic",
+        "url": "https://engage.x-team.com/hubfs/Single-Woman-Actions-Setting--Streamline-Ultimate.png",
+        "type": "image/png"
+      },
+      {
+        "name": "Data File Lock Security Graphic",
+        "url": "https://engage.x-team.com/hubfs/Data-File-Lock--Streamline-Ultimate.png",
+        "type": "image/png"
+      },
+      {
+        "name": "Accounting Invoice Billing Graphic",
+        "url": "https://engage.x-team.com/hubfs/Accounting-Invoice--Streamline-Ultimate.png",
+        "type": "image/png"
+      }
+    ],
+    "external_fonts": [
+      {
+        "family": "Outfit",
+        "provider": "Google Fonts",
+        "url": "https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      },
+      {
+        "family": "Inter",
+        "provider": "Google Fonts",
+        "url": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      },
+      {
+        "family": "Roboto",
+        "provider": "Google Fonts",
+        "url": "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      }
+    ]
+  }
+}

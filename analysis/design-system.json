@@ -1,0 +1,140 @@
+{
+  "theme": "Dark Cyberpunk / Tech Modern",
+  "colors": {
+    "background": {
+      "main": "#0c0c0c",
+      "darker": "#000000",
+      "card": "#141416",
+      "muted": "#1e1e1e"
+    },
+    "brand": {
+      "primary": "#6d24e5",
+      "secondary": "#5b21b9",
+      "accent": "#7c3aed",
+      "gradient_start": "#a855f7",
+      "gradient_end": "#7c3aed",
+      "orange": "#f60",
+      "red": "#e21b22"
+    },
+    "text": {
+      "primary": "#ffffff",
+      "secondary": "#dfcefc",
+      "muted": "#8d919b",
+      "dark_body": "#333333"
+    },
+    "border": {
+      "default": "rgba(255, 255, 255, 0.08)",
+      "glowing": "rgba(109, 36, 229, 0.4)",
+      "dark": "#1f2937"
+    }
+  },
+  "typography": {
+    "fonts": {
+      "heading": "\"Outfit\", sans-serif",
+      "body": "\"Inter\", sans-serif",
+      "caption": "\"Roboto\", sans-serif"
+    },
+    "scale": {
+      "xs": {
+        "size": "12px",
+        "line_height": "16px"
+      },
+      "sm": {
+        "size": "14px",
+        "line_height": "20.16px"
+      },
+      "base": {
+        "size": "16px",
+        "line_height": "24px"
+      },
+      "lg": {
+        "size": "18px",
+        "line_height": "25.92px"
+      },
+      "xl": {
+        "size": "22.5px",
+        "line_height": "25.2px"
+      },
+      "2xl": {
+        "size": "28px",
+        "line_height": "36.96px"
+      },
+      "3xl": {
+        "size": "35px",
+        "line_height": "46.2px"
+      },
+      "4xl": {
+        "size": "44px",
+        "line_height": "49.28px"
+      },
+      "5xl": {
+        "size": "64px",
+        "line_height": "72px"
+      }
+    },
+    "weights": {
+      "regular": "400",
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700"
+    }
+  },
+  "spacing": {
+    "px": "1px",
+    "0": "0px",
+    "1": "4px",
+    "2": "8px",
+    "3": "12px",
+    "4": "16px",
+    "5": "20px",
+    "6": "24px",
+    "8": "32px",
+    "10": "40px",
+    "12": "48px",
+    "16": "64px",
+    "20": "80px",
+    "24": "96px"
+  },
+  "borders": {
+    "radius": {
+      "none": "0px",
+      "sm": "4px",
+      "default": "6px",
+      "md": "8px",
+      "lg": "12px",
+      "full": "9999px"
+    }
+  },
+  "shadows": {
+    "default": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+    "glow": "0 0 15px rgba(109, 36, 229, 0.35)",
+    "intense_glow": "0 0 25px rgba(168, 85, 247, 0.5)"
+  },
+  "layout": {
+    "container_widths": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1200px",
+      "2xl": "1280px",
+      "max": "1440px"
+    },
+    "breakpoints": {
+      "xs": "375px",
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1200px",
+      "2xl": "1440px"
+    },
+    "z_indices": {
+      "negative": -1,
+      "base": 0,
+      "card_hover": 10,
+      "sticky_header": 50,
+      "overlay": 100,
+      "modal": 200,
+      "tooltip": 300
+    }
+  }
+}
