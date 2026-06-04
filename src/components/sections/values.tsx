@@ -124,7 +124,7 @@ export const ValuePropositionGrid: React.FC = () => {
                 <div className="w-full h-full rotate-45 overflow-hidden border-4 md:border-[6px] border-white shadow-xl rounded-3xl transition-all duration-300">
                   <div className="w-[140%] h-[140%] -rotate-45 relative -left-[20%] -top-[20%]">
                     <Image
-                      src="https://images.unsplash.com/photo-1521791136368-1a46827d0515?auto=format&fit=crop&q=80&w=500"
+                      src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=500"
                       alt="Handshake team alignment"
                       fill
                       className="object-cover scale-[1.1] group-hover:scale-[1.15] transition-transform duration-305"
