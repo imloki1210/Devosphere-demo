@@ -33,74 +33,89 @@ export const ValuePropositionGrid: React.FC = () => {
               Scale with Purpose
             </Heading>
             <Text size="lg" className="text-text-muted leading-relaxed">
-              Maintain speed, consistency, and alignment. Devosphere offers a unique infrastructure designed to scale your technical capacity seamlessly while preserving standard developer dedication and product engineering quality.
+              Whether you need a few engineers or an entire development team, our rigorously vetted tech talent seamlessly integrates into your workflow, actively contributing to your growth and goals from day one. As your needs evolve, we’re here to adapt and drive your vision forward.
             </Text>
           </motion.div>
 
-          {/* Right Column (Visual: 4 overlapping diamond cards with purple cross in center) */}
+          {/* Right Column (Visual: 4 overlapping diagonal diamond cards with custom logo in center) */}
           <div className="lg:col-span-7 flex justify-center items-center min-h-[400px] relative">
-            <div className="relative w-[320px] md:w-[380px] h-[320px] md:h-[380px]">
-              {/* Top Diamond */}
-              <div className="absolute top-0 left-[28%] w-[110px] md:w-[130px] h-[110px] md:h-[130px] group">
-                <div className="w-full h-full rotate-45 overflow-hidden border-4 border-white shadow-lg rounded-2xl transition-all duration-300">
-                  <div className="w-[140%] h-[140%] -rotate-45 relative -left-[20%] -top-[20%]">
+            <div className="relative w-[280px] md:w-[340px] h-[280px] md:h-[340px]">
+              {/* Decorative Diagonal Rays behind everything (z-0) */}
+              <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none scale-150">
+                <div className="absolute w-[200px] h-[1px] bg-brand-primary/20 rotate-45" />
+                <div className="absolute w-[200px] h-[1px] bg-brand-primary/20 -rotate-45" />
+                <div className="absolute w-[120px] h-[120px] rounded-full bg-brand-primary/15 blur-xl" />
+              </div>
+
+              {/* Top-Left Diamond */}
+              <div className="absolute top-0 left-0 w-[130px] md:w-[160px] h-[130px] md:h-[160px] z-10 group">
+                <div className="relative w-full h-full rotate-45 overflow-hidden border-4 border-white shadow-lg rounded-2xl transition-all duration-300">
+                  <div className="absolute top-1/2 left-1/2 w-[142%] h-[142%] -translate-x-1/2 -translate-y-1/2 -rotate-45">
                     <Image
-                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300"
+                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=facearea&facepad=3.0&w=300&h=300&q=80"
                       alt="Developer profile"
                       fill
-                      className="object-cover scale-[1.1] group-hover:scale-[1.15] transition-transform duration-305"
+                      className="object-cover scale-100 group-hover:scale-105 transition-transform duration-305"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Left Diamond */}
-              <div className="absolute top-[28%] left-0 w-[110px] md:w-[130px] h-[110px] md:h-[130px] group">
-                <div className="w-full h-full rotate-45 overflow-hidden border-4 border-white shadow-lg rounded-2xl transition-all duration-300">
-                  <div className="w-[140%] h-[140%] -rotate-45 relative -left-[20%] -top-[20%]">
+              {/* Top-Right Diamond */}
+              <div className="absolute top-0 right-0 w-[130px] md:w-[160px] h-[130px] md:h-[160px] z-10 group">
+                <div className="relative w-full h-full rotate-45 overflow-hidden border-4 border-white shadow-lg rounded-2xl transition-all duration-300">
+                  <div className="absolute top-1/2 left-1/2 w-[142%] h-[142%] -translate-x-1/2 -translate-y-1/2 -rotate-45">
                     <Image
-                      src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300"
+                      src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=facearea&facepad=3.0&w=300&h=300&q=80"
                       alt="Developer profile"
                       fill
-                      className="object-cover scale-[1.1] group-hover:scale-[1.15] transition-transform duration-305"
+                      className="object-cover scale-100 group-hover:scale-105 transition-transform duration-305"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Right Diamond */}
-              <div className="absolute top-[28%] right-0 w-[110px] md:w-[130px] h-[110px] md:h-[130px] group">
-                <div className="w-full h-full rotate-45 overflow-hidden border-4 border-white shadow-lg rounded-2xl transition-all duration-300">
-                  <div className="w-[140%] h-[140%] -rotate-45 relative -left-[20%] -top-[20%]">
+              {/* Bottom-Left Diamond */}
+              <div className="absolute bottom-0 left-0 w-[130px] md:w-[160px] h-[130px] md:h-[160px] z-10 group">
+                <div className="relative w-full h-full rotate-45 overflow-hidden border-4 border-white shadow-lg rounded-2xl transition-all duration-300">
+                  <div className="absolute top-1/2 left-1/2 w-[142%] h-[142%] -translate-x-1/2 -translate-y-1/2 -rotate-45">
                     <Image
-                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=300"
+                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=facearea&facepad=3.0&w=300&h=300&q=80"
                       alt="Developer profile"
                       fill
-                      className="object-cover scale-[1.1] group-hover:scale-[1.15] transition-transform duration-305"
+                      className="object-cover scale-100 group-hover:scale-105 transition-transform duration-305"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Bottom Diamond */}
-              <div className="absolute bottom-0 left-[28%] w-[110px] md:w-[130px] h-[110px] md:h-[130px] group">
-                <div className="w-full h-full rotate-45 overflow-hidden border-4 border-white shadow-lg rounded-2xl transition-all duration-300">
-                  <div className="w-[140%] h-[140%] -rotate-45 relative -left-[20%] -top-[20%]">
+              {/* Bottom-Right Diamond */}
+              <div className="absolute bottom-0 right-0 w-[130px] md:w-[160px] h-[130px] md:h-[160px] z-10 group">
+                <div className="relative w-full h-full rotate-45 overflow-hidden border-4 border-white shadow-lg rounded-2xl transition-all duration-300">
+                  <div className="absolute top-1/2 left-1/2 w-[142%] h-[142%] -translate-x-1/2 -translate-y-1/2 -rotate-45">
                     <Image
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300"
+                      src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=facearea&facepad=3.0&w=300&h=300&q=80"
                       alt="Developer profile"
                       fill
-                      className="object-cover scale-[1.1] group-hover:scale-[1.15] transition-transform duration-305"
+                      className="object-cover scale-100 group-hover:scale-105 transition-transform duration-305"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Center Diamond (Purple Cross Icon) */}
-              <div className="absolute top-[28%] left-[28%] w-[110px] md:w-[130px] h-[110px] md:h-[130px] z-10 flex items-center justify-center pointer-events-none">
-                <div className="w-full h-full rotate-45 bg-brand-primary flex items-center justify-center shadow-lg rounded-2xl border-4 border-white">
-                  <svg viewBox="0 0 24 24" className="w-8 h-8 text-white -rotate-45 fill-current">
-                    <path d="M19 10.5h-5.5V5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v5.5H5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5h5.5V19c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-5.5H19c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5z" />
+              {/* Center Diamond (Purple Devosphere Logo with Rays & Glow) */}
+              <div className="absolute top-1/2 left-1/2 w-[90px] md:w-[110px] h-[90px] md:h-[110px] -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center">
+                <div className="w-full h-full rotate-45 bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center shadow-lg rounded-2xl border-4 border-white">
+                  <svg
+                    viewBox="0 0 100 100"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-10 h-10 text-white -rotate-45"
+                  >
+                    <circle cx="50" cy="50" r="42" stroke="currentColor" strokeWidth="8" />
+                    <ellipse cx="50" cy="50" rx="42" ry="15" stroke="currentColor" strokeWidth="5" strokeDasharray="8 6" transform="rotate(-30 50 50)" />
+                    <path d="M38 40 L26 50 L38 60" stroke="currentColor" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M62 40 L74 50 L62 60" stroke="currentColor" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
               </div>
@@ -121,8 +136,8 @@ export const ValuePropositionGrid: React.FC = () => {
               
               {/* Handshake Diamond overlay */}
               <div className="absolute top-[15%] left-[15%] w-[220px] md:w-[260px] h-[220px] md:h-[260px] z-10 group">
-                <div className="w-full h-full rotate-45 overflow-hidden border-4 md:border-[6px] border-white shadow-xl rounded-3xl transition-all duration-300">
-                  <div className="w-[140%] h-[140%] -rotate-45 relative -left-[20%] -top-[20%]">
+                <div className="relative w-full h-full rotate-45 overflow-hidden border-4 md:border-[6px] border-white shadow-xl rounded-3xl transition-all duration-300">
+                  <div className="absolute top-1/2 left-1/2 w-[142%] h-[142%] -translate-x-1/2 -translate-y-1/2 -rotate-45">
                     <Image
                       src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=500"
                       alt="Handshake team alignment"
@@ -133,10 +148,18 @@ export const ValuePropositionGrid: React.FC = () => {
                 </div>
               </div>
               
-              {/* Tiny float graphic element */}
+              {/* Tiny float graphic element with Devosphere Logo */}
               <div className="absolute top-[5%] right-[15%] w-[60px] h-[60px] bg-brand-primary/10 rotate-45 rounded-xl flex items-center justify-center z-20">
-                <svg viewBox="0 0 24 24" className="w-6 h-6 text-brand-primary -rotate-45 fill-current">
-                  <path d="M19 10.5h-5.5V5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v5.5H5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5h5.5V19c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5v-5.5H19c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5z" />
+                <svg
+                  viewBox="0 0 100 100"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-6 h-6 text-brand-primary -rotate-45"
+                >
+                  <circle cx="50" cy="50" r="42" stroke="currentColor" strokeWidth="8" />
+                  <ellipse cx="50" cy="50" rx="42" ry="15" stroke="currentColor" strokeWidth="5" strokeDasharray="8 6" transform="rotate(-30 50 50)" />
+                  <path d="M38 40 L26 50 L38 60" stroke="currentColor" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M62 40 L74 50 L62 60" stroke="currentColor" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
             </div>

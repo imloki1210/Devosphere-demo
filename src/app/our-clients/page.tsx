@@ -31,22 +31,28 @@ export default function OurClientsPage() {
             </Text>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {clients.map((client, index) => (
-              <Card key={index} variant="glow" className="p-8 flex flex-col gap-4">
-                <Award className="w-8 h-8 text-brand-primary" />
-                <Heading level={3} size="xl" className="text-gray-900">
-                  {client.name}
-                </Heading>
-                <Text size="base" variant="muted">
-                  {client.impact}
-                </Text>
-              </Card>
-            ))}
-          </div>
+          <section id="cases" className="scroll-mt-24 pt-4 border-t border-gray-100">
+            <Heading level={2} size="2xl" className="text-black font-extrabold tracking-tight mb-8">
+              Case Studies
+            </Heading>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {clients.map((client, index) => (
+                <Card key={index} variant="glow" className="p-8 flex flex-col gap-4">
+                  <Award className="w-8 h-8 text-brand-primary" />
+                  <Heading level={3} size="xl" className="text-gray-900">
+                    {client.name}
+                  </Heading>
+                  <Text size="base" variant="muted">
+                    {client.impact}
+                  </Text>
+                </Card>
+              ))}
+            </div>
+          </section>
         </Container>
       </main>
       <Footer />
     </div>
   );
 }
+

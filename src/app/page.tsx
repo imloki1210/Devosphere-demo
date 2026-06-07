@@ -6,7 +6,7 @@ import { StatsCounter } from "@/components/sections/stats";
 import { ValuePropositionGrid } from "@/components/sections/values";
 import { CaseStudiesSection } from "@/components/sections/case-studies";
 import { ProcessSection } from "@/components/sections/process";
-import { MagazineSection } from "@/components/sections/magazine";
+
 import { TestimonialsSlider } from "@/components/sections/testimonials";
 import { CTABanner } from "@/components/sections/cta";
 import { Footer } from "@/components/layout/footer";
@@ -25,7 +25,7 @@ export default function Home() {
         <ValuePropositionGrid />
         <CaseStudiesSection />
         <ProcessSection />
-        <MagazineSection />
+
         <TestimonialsSlider />
         <CTABanner />
       </main>

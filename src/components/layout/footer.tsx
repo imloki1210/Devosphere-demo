@@ -6,28 +6,18 @@ import { Text } from "../ui/text";
 
 const footerLinks = {
   solutions: [
-    { label: "Hire Developers", href: "/software-development-solutions" },
-    { label: "Dedicated Teams", href: "/software-development-solutions" },
-    { label: "Talent Solutions", href: "/software-development-solutions" },
-    { label: "Technologies Hub", href: "/technologies" },
+    { label: "Solutions", href: "/services" },
+    { label: "How It Works", href: "/services/how-it-works" },
+    { label: "Technologies", href: "/services/technologies" },
   ],
   company: [
-    { label: "About Us", href: "/about" },
-    { label: "How It Works", href: "/how-it-works" },
-    { label: "Case Studies", href: "/case-studies" },
+    { label: "Who We Are", href: "/who-we-are" },
+    { label: "Our Clients", href: "/our-clients" },
     { label: "Careers", href: "/careers" },
-    { label: "Newsroom", href: "/newsroom" },
-  ],
-  community: [
-    { label: "The Devosphere Universe", href: "/x-team-universe-explained" },
-    { label: "Unleash Community", href: "/unleash" },
-    { label: "Developer Perks", href: "/unleash" },
-    { label: "Vault Shop", href: "/unleash" },
   ],
   legal: [
-    { label: "Privacy Policy", href: "/privacy-policy" },
-    { label: "Cookie Notice", href: "/cookie-notice" },
-    { label: "Terms of Service", href: "/privacy-policy" },
+    { label: "Privacy Policy", href: "/contact" },
+    { label: "Terms of Service", href: "/contact" },
   ],
 };
 
@@ -36,9 +26,9 @@ export const Footer: React.FC = () => {
     <footer className="bg-background-darker border-t border-white/5 pt-20 pb-10 w-full relative z-10">
       <Container size="2xl">
         {/* Main Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
           {/* Logo & Info column */}
-          <div className="lg:col-span-2 flex flex-col gap-6">
+          <div className="lg:col-span-2 flex flex-col gap-6 text-left">
             <Link href="/" className="flex items-center gap-3 group">
               <div className="flex gap-2 items-center">
                 <svg
@@ -88,62 +78,47 @@ export const Footer: React.FC = () => {
               </Link>
             </div>
           </div>
-
+ 
           {/* Links columns */}
-          <div>
-            <Heading level={4} size="base" className="font-bold text-white mb-6 uppercase tracking-wider text-xs">
+          <div className="text-left">
+            <Heading level={4} size="base" className="font-bold text-gray-900 mb-6 uppercase tracking-wider text-xs">
               Solutions
             </Heading>
             <ul className="flex flex-col gap-3">
               {footerLinks.solutions.map((item, index) => (
                 <li key={index}>
-                  <Link href={item.href} className="text-sm text-text-muted hover:text-white transition-colors duration-200">
+                  <Link href={item.href} className="text-sm text-gray-600 hover:text-brand-primary transition-colors duration-200">
                     {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-
-          <div>
-            <Heading level={4} size="base" className="font-bold text-white mb-6 uppercase tracking-wider text-xs">
+ 
+          <div className="text-left">
+            <Heading level={4} size="base" className="font-bold text-gray-900 mb-6 uppercase tracking-wider text-xs">
               Company
             </Heading>
             <ul className="flex flex-col gap-3">
               {footerLinks.company.map((item, index) => (
                 <li key={index}>
-                  <Link href={item.href} className="text-sm text-text-muted hover:text-white transition-colors duration-200">
+                  <Link href={item.href} className="text-sm text-gray-600 hover:text-brand-primary transition-colors duration-200">
                     {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-
-          <div>
-            <Heading level={4} size="base" className="font-bold text-white mb-6 uppercase tracking-wider text-xs">
-              Universe
-            </Heading>
-            <ul className="flex flex-col gap-3">
-          {footerLinks.community.map((item, index) => (
-            <li key={index}>
-              <Link href={item.href} className="text-sm text-text-muted hover:text-white transition-colors duration-200">
-                {item.label}
-              </Link>
-            </li>
-          ))}
-            </ul>
-          </div>
         </div>
 
         {/* Lower section */}
-        <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <Text size="sm" variant="muted">
+        <div className="border-t border-gray-100 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <Text size="sm" className="text-gray-500">
             &copy; {new Date().getFullYear()} Devosphere. All rights reserved.
           </Text>
           <div className="flex items-center gap-6">
             {footerLinks.legal.map((item, index) => (
-              <Link key={index} href={item.href} className="text-xs text-text-muted hover:text-white transition-colors duration-200">
+              <Link key={index} href={item.href} className="text-xs text-gray-500 hover:text-brand-primary transition-colors duration-200">
                 {item.label}
               </Link>
             ))}

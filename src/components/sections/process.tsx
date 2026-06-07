@@ -66,10 +66,10 @@ export const ProcessSection: React.FC = () => {
             <div className="relative w-[300px] h-[300px] md:w-[380px] md:h-[380px] mx-auto lg:mx-0 mt-4">
               {/* Diamond 1 (Top Left) */}
               <div className="absolute top-0 left-0 w-[140px] md:w-[180px] h-[140px] md:h-[180px] z-20 group">
-                <div className="w-full h-full rotate-45 overflow-hidden border-4 md:border-[6px] border-white shadow-[0_10px_25px_rgba(0,0,0,0.06)] rounded-2xl md:rounded-[20px] bg-gray-100 transition-all duration-300">
-                  <div className="w-[140%] h-[140%] -rotate-45 relative -left-[20%] -top-[20%]">
+                <div className="relative w-full h-full rotate-45 overflow-hidden border-4 md:border-[6px] border-white shadow-[0_10px_25px_rgba(0,0,0,0.06)] rounded-2xl md:rounded-[20px] bg-gray-100 transition-all duration-300">
+                  <div className="absolute top-1/2 left-1/2 w-[142%] h-[142%] -translate-x-1/2 -translate-y-1/2 -rotate-45">
                     <Image
-                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400"
+                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=facearea&facepad=3.0&w=400&h=400&q=80"
                       alt="Devosphere Member Profile"
                       fill
                       className="object-cover scale-[1.1] group-hover:scale-[1.15] transition-transform duration-300"
@@ -81,10 +81,10 @@ export const ProcessSection: React.FC = () => {
 
               {/* Diamond 2 (Bottom Right) */}
               <div className="absolute bottom-[10%] right-[10%] w-[140px] md:w-[180px] h-[140px] md:h-[180px] z-10 group">
-                <div className="w-full h-full rotate-45 overflow-hidden border-4 md:border-[6px] border-white shadow-[0_10px_25px_rgba(0,0,0,0.06)] rounded-2xl md:rounded-[20px] bg-gray-100 transition-all duration-300">
-                  <div className="w-[140%] h-[140%] -rotate-45 relative -left-[20%] -top-[20%]">
+                <div className="relative w-full h-full rotate-45 overflow-hidden border-4 md:border-[6px] border-white shadow-[0_10px_25px_rgba(0,0,0,0.06)] rounded-2xl md:rounded-[20px] bg-gray-100 transition-all duration-300">
+                  <div className="absolute top-1/2 left-1/2 w-[142%] h-[142%] -translate-x-1/2 -translate-y-1/2 -rotate-45">
                     <Image
-                      src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400"
+                      src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=facearea&facepad=3.0&w=400&h=400&q=80"
                       alt="Devosphere Member Profile"
                       fill
                       className="object-cover scale-[1.1] group-hover:scale-[1.15] transition-transform duration-300"

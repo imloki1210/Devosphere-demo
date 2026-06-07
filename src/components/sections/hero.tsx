@@ -70,21 +70,25 @@ export const HeroSection: React.FC = () => {
             className="lg:col-span-6 flex items-center justify-center relative min-h-[450px] md:min-h-[550px]"
           >
             {/* Decorative background grid and cross lines */}
-            <div className="absolute w-[80%] h-[80%] border border-brand-primary/5 rounded-full pointer-events-none -rotate-12" />
-            <div className="absolute top-[20%] right-[20%] w-[150px] h-[1px] bg-brand-primary/10 rotate-[45deg]" />
-            <div className="absolute bottom-[30%] left-[20%] w-[150px] h-[1px] bg-brand-primary/10 rotate-[45deg]" />
+            <div className="absolute w-[120%] h-[120%] pointer-events-none -z-10 flex items-center justify-center">
+              <div className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-brand-primary/10 via-[#d946ef]/8 to-transparent blur-[80px]" />
+              <div className="absolute w-[130%] h-[1px] bg-brand-primary/15 rotate-[35deg] translate-y-[-40px]" />
+              <div className="absolute w-[130%] h-[1px] bg-brand-primary/15 rotate-[35deg] translate-y-[40px]" />
+              <div className="absolute w-[130%] h-[1px] bg-[#d946ef]/10 -rotate-[55deg] translate-x-[-60px]" />
+              <div className="absolute w-[130%] h-[1px] bg-brand-primary/10 -rotate-[55deg] translate-x-[60px]" />
+            </div>
 
             {/* Diamonds Layout Wrapper */}
             <div className="relative w-[320px] md:w-[420px] h-[320px] md:h-[420px]">
               {/* Diamond 1 (Top Left) */}
               <div className="absolute top-0 left-[15%] w-[160px] md:w-[200px] h-[160px] md:h-[200px] z-20 group">
-                <div className="w-full h-full rotate-45 overflow-hidden border-4 md:border-[6px] border-white shadow-[0_15px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(109,36,229,0.15)] rounded-2xl md:rounded-[24px] transition-all duration-300 bg-gray-100">
-                  <div className="w-[140%] h-[140%] -rotate-45 relative -left-[20%] -top-[20%]">
-                    <Image
-                      src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400"
+                <div className="relative w-full h-full rotate-45 overflow-hidden border-4 md:border-[6px] border-white shadow-[0_15px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(109,36,229,0.15)] rounded-2xl md:rounded-[24px] transition-all duration-300 bg-gray-100">
+                   <div className="absolute top-1/2 left-1/2 w-[142%] h-[142%] -translate-x-1/2 -translate-y-1/2 -rotate-45">
+                     <Image
+                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=facearea&facepad=3.0&w=400&h=400&q=80"
                       alt="Devosphere Developer Profile"
                       fill
-                      className="object-cover scale-[1.1] group-hover:scale-[1.15] transition-transform duration-300"
+                      className="object-cover scale-100 group-hover:scale-105 transition-transform duration-300"
                       sizes="(max-width: 768px) 160px, 200px"
                       priority
                     />
@@ -94,13 +98,13 @@ export const HeroSection: React.FC = () => {
 
               {/* Diamond 2 (Middle Right) */}
               <div className="absolute top-[25%] right-0 w-[160px] md:w-[200px] h-[160px] md:h-[200px] z-30 group">
-                <div className="w-full h-full rotate-45 overflow-hidden border-4 md:border-[6px] border-white shadow-[0_15px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(109,36,229,0.15)] rounded-2xl md:rounded-[24px] transition-all duration-300 bg-gray-100">
-                  <div className="w-[140%] h-[140%] -rotate-45 relative -left-[20%] -top-[20%]">
-                    <Image
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400"
+                <div className="relative w-full h-full rotate-45 overflow-hidden border-4 md:border-[6px] border-white shadow-[0_15px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(109,36,229,0.15)] rounded-2xl md:rounded-[24px] transition-all duration-300 bg-gray-100">
+                   <div className="absolute top-1/2 left-1/2 w-[142%] h-[142%] -translate-x-1/2 -translate-y-1/2 -rotate-45">
+                     <Image
+                      src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=facearea&facepad=3.0&w=400&h=400&q=80"
                       alt="Devosphere Developer Profile"
                       fill
-                      className="object-cover scale-[1.1] group-hover:scale-[1.15] transition-transform duration-300"
+                      className="object-cover scale-100 group-hover:scale-105 transition-transform duration-300"
                       sizes="(max-width: 768px) 160px, 200px"
                       priority
                     />
@@ -110,13 +114,13 @@ export const HeroSection: React.FC = () => {
 
               {/* Diamond 3 (Bottom Left) */}
               <div className="absolute bottom-0 left-[5%] w-[160px] md:w-[200px] h-[160px] md:h-[200px] z-10 group">
-                <div className="w-full h-full rotate-45 overflow-hidden border-4 md:border-[6px] border-white shadow-[0_15px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(109,36,229,0.15)] rounded-2xl md:rounded-[24px] transition-all duration-300 bg-gray-100">
-                  <div className="w-[140%] h-[140%] -rotate-45 relative -left-[20%] -top-[20%]">
-                    <Image
-                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400"
+                <div className="relative w-full h-full rotate-45 overflow-hidden border-4 md:border-[6px] border-white shadow-[0_15px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgba(109,36,229,0.15)] rounded-2xl md:rounded-[24px] transition-all duration-300 bg-gray-100">
+                   <div className="absolute top-1/2 left-1/2 w-[142%] h-[142%] -translate-x-1/2 -translate-y-1/2 -rotate-45">
+                     <Image
+                      src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=facearea&facepad=3.0&w=400&h=400&q=80"
                       alt="Devosphere Developer Profile"
                       fill
-                      className="object-cover scale-[1.1] group-hover:scale-[1.15] transition-transform duration-300"
+                      className="object-cover scale-100 group-hover:scale-105 transition-transform duration-300"
                       sizes="(max-width: 768px) 160px, 200px"
                     />
                   </div>

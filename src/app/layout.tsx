@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Inter, Roboto } from "next/font/google";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -26,11 +27,11 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "Devosphere: Hire Elite, On-Demand Tech Talent",
   description:
-    "Scale your product engineering team with vetted, highly motivated remote software developers from around the world. We hire developers who are ready to scale with you.",
+    "Scale your product engineering team with vetted, highly motivated software developers from around the world. We hire developers who are ready to scale with you.",
   metadataBase: new URL("https://x-team.com"),
   openGraph: {
     title: "Devosphere: Hire Elite, On-Demand Tech Talent",
-    description: "Scale your product engineering team with vetted, highly motivated remote software developers.",
+    description: "Scale your product engineering team with vetted, highly motivated software developers.",
     url: "https://x-team.com",
     siteName: "Devosphere",
     type: "website",
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Devosphere: Hire Elite, On-Demand Tech Talent",
-    description: "Scale your product engineering team with vetted, highly motivated remote software developers.",
+    description: "Scale your product engineering team with vetted, highly motivated software developers.",
   },
 };
 
@@ -54,6 +55,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background-main text-text-primary font-body selection:bg-brand-primary selection:text-white">
         {children}
+        <ScrollToTop />
       </body>
     </html>
   );

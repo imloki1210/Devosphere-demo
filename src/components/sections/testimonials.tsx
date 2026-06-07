@@ -41,7 +41,7 @@ export const TestimonialsSlider: React.FC = () => {
             What engineering leaders say
           </Heading>
           <Text size="base" variant="muted">
-            Read how global brands rely on Devosphere's remote software developers to execute technical deliverables on-time.
+            Read how global brands rely on Devosphere's software developers to execute technical deliverables on-time.
           </Text>
         </div>
 
