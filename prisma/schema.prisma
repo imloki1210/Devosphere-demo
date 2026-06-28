@@ -1,0 +1,50 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model ContactRequest {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String
+  phone     String?
+  project   String
+  createdAt DateTime @default(now())
+}
+
+model JobApplication {
+  id        String   @id @default(uuid())
+  firstName String
+  lastName  String
+  email     String
+  phone     String?
+  role      String
+  resumeUrl String
+  linkedin  String?
+  github    String?
+  experience String?
+  createdAt DateTime @default(now())
+}
+
+model JobOpening {
+  id           String   @id @default(uuid())
+  title        String
+  dept         String
+  description  String   @default("")
+  requirements String   @default("")
+  locationType String   @default("Remote")
+  budget       String   @default("")
+  experience   String   @default("")
+  createdAt    DateTime @default(now())
+}
+
+model AdminSettings {
+  id                String   @id @default("default")
+  notificationEmail String   @default("admin@devosphere.com")
+  updatedAt         DateTime @updatedAt
+}

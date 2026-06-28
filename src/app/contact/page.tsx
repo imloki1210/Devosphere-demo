@@ -9,29 +9,54 @@ import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 
+import { COUNTRIES } from "@/lib/countries";
+
 export default function ContactPage() {
   const [formData, setFormData] = React.useState({
     firstName: "",
     lastName: "",
     email: "",
-    phone: "",
     project: "",
   });
+  const [phoneInput, setPhoneInput] = React.useState("");
+  const [selectedCountry, setSelectedCountry] = React.useState(COUNTRIES[0]);
   const [status, setStatus] = React.useState<"idle" | "submitting" | "success">("idle");
+  const [errorMsg, setErrorMsg] = React.useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("submitting");
-    setTimeout(() => {
+    setErrorMsg(null);
+
+    try {
+      const finalPhone = phoneInput.trim() ? `${selectedCountry.code} ${phoneInput.trim()}` : "";
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          phone: finalPhone,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Something went wrong. Please try again.");
+      }
+
       setStatus("success");
       setFormData({
         firstName: "",
         lastName: "",
         email: "",
-        phone: "",
         project: "",
       });
-    }, 1200);
+      setPhoneInput("");
+    } catch (err: any) {
+      setStatus("idle");
+      setErrorMsg(err.message || "Failed to submit. Please check your connection.");
+    }
   };
 
   return (
@@ -103,15 +128,30 @@ export default function ContactPage() {
                   Phone Number
                 </label>
                 <div className="flex items-center border border-gray-300 rounded-md overflow-hidden bg-white focus-within:border-brand-primary focus-within:ring-1 focus-within:ring-brand-primary transition-all duration-200">
-                  <div className="flex items-center gap-1.5 px-3 bg-gray-50 border-r border-gray-200 select-none">
-                    <span className="text-lg">🇮🇳</span>
-                    <span className="text-gray-500 text-sm font-medium">▼</span>
+                  <div className="relative flex items-center gap-1.5 px-3 py-3.5 bg-gray-50 border-r border-gray-200 select-none cursor-pointer">
+                    <span className="text-lg leading-none">{selectedCountry.flag}</span>
+                    <span className="text-gray-600 text-sm font-semibold">{selectedCountry.code}</span>
+                    <span className="text-gray-400 text-xs">▼</span>
+                    <select
+                      value={selectedCountry.code}
+                      onChange={(e) => {
+                        const country = COUNTRIES.find((c) => c.code === e.target.value);
+                        if (country) setSelectedCountry(country);
+                      }}
+                      className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                    >
+                      {COUNTRIES.map((c, idx) => (
+                        <option key={idx} value={c.code}>
+                          {c.flag} {c.name} ({c.code})
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <input
                     type="tel"
-                    placeholder="+91"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    placeholder="Phone Number"
+                    value={phoneInput}
+                    onChange={(e) => setPhoneInput(e.target.value)}
                     className="w-full bg-white px-4 py-3 text-base text-black outline-none placeholder-gray-400"
                   />
                 </div>
@@ -155,6 +195,12 @@ export default function ContactPage() {
               {status === "success" && (
                 <div className="text-sm font-semibold text-emerald-600 mt-2 text-center p-3 bg-emerald-50 border border-emerald-100 rounded-md">
                   Thank you! Your request has been successfully submitted. We will contact you shortly.
+                </div>
+              )}
+
+              {errorMsg && (
+                <div className="text-sm font-semibold text-red-600 mt-2 text-center p-3 bg-red-50 border border-red-100 rounded-md">
+                  {errorMsg}
                 </div>
               )}
 

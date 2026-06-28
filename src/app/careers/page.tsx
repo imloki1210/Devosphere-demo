@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useMotionValue, useTransform, animate, useInView, AnimatePresence } from "framer-motion";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -131,6 +132,31 @@ export default function CareersPage() {
 
   // Testimonial slider state for mobile/tablet
   const [activeQuote, setActiveQuote] = React.useState(0);
+
+  // Dynamic Openings state
+  interface JobItem {
+    id: string;
+    title: string;
+    dept: string;
+  }
+  const [openings, setOpenings] = React.useState<JobItem[]>([]);
+  const [loadingOpenings, setLoadingOpenings] = React.useState(true);
+
+  React.useEffect(() => {
+    fetch("/api/jobs")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setOpenings(data);
+        }
+      })
+      .catch((err) => {
+        console.error("Error loading jobs:", err);
+      })
+      .finally(() => {
+        setLoadingOpenings(false);
+      });
+  }, []);
 
   const nextQuote = () => {
     setActiveQuote((prev) => (prev + 1) % quotes.length);
@@ -463,21 +489,31 @@ export default function CareersPage() {
             </Text>
           </div>
           <div className="flex flex-col gap-5 max-w-3xl mx-auto">
-            {[
-              { title: "Senior React/Next.js Engineer", dept: "Frontend Development" },
-              { title: "Staff Node.js Engineer", dept: "Backend Infrastructure" },
-              { title: "Senior DevOps Architect (AWS/K8s)", dept: "Cloud Platform" },
-            ].map((job, idx) => (
-              <div key={idx} className="border border-black rounded-2xl p-6 bg-white flex flex-row items-center justify-between gap-4 w-full">
-                <div className="flex flex-col text-left">
-                  <h3 className="font-heading font-extrabold text-base md:text-lg text-black leading-snug">{job.title}</h3>
-                  <span className="text-xs md:text-sm text-gray-500 font-medium mt-1">{job.dept}</span>
-                </div>
-                <Button variant="primary" size="md" href="/apply" className="bg-[#6d24e5] hover:bg-[#5b21b9] border-[#6d24e5] text-white font-bold rounded-lg px-6 py-2.5 shrink-0">
-                  Apply Here
-                </Button>
+            {loadingOpenings ? (
+              <div className="text-center py-8 text-gray-500 font-semibold">
+                Loading open positions...
               </div>
-            ))}
+            ) : openings.length === 0 ? (
+              <div className="border border-dashed border-gray-300 rounded-2xl p-10 bg-white text-center">
+                <Text size="base" variant="muted">
+                  There are currently no active openings. Please check back later!
+                </Text>
+              </div>
+            ) : (
+              openings.map((job) => (
+                <div key={job.id} className="border border-black rounded-2xl p-6 bg-white flex flex-row items-center justify-between gap-4 w-full">
+                  <div className="flex flex-col text-left">
+                    <Link href={`/careers/${job.id}`} className="hover:text-brand-primary transition-colors">
+                      <h3 className="font-heading font-extrabold text-base md:text-lg text-black leading-snug">{job.title}</h3>
+                    </Link>
+                    <span className="text-xs md:text-sm text-gray-500 font-medium mt-1">{job.dept}</span>
+                  </div>
+                  <Button variant="primary" size="md" href={`/careers/${job.id}`} className="bg-[#6d24e5] hover:bg-[#5b21b9] border-[#6d24e5] text-white font-bold rounded-lg px-6 py-2.5 shrink-0">
+                    View Details
+                  </Button>
+                </div>
+              ))
+            )}
           </div>
         </Container>
       </section>
