@@ -633,24 +633,22 @@ export default function AdminPage() {
                       <table className="w-full text-left border-collapse">
                         <thead>
                           <tr className="bg-gray-50 border-b border-gray-200 text-xs font-heading font-black text-gray-400 uppercase tracking-wider">
-                            {adminRole === "super_admin" && (
-                              <th className="p-5 w-12">
-                                <input
-                                  type="checkbox"
-                                  checked={filteredCandidates.length > 0 && filteredCandidates.every(c => selectedCandidates.includes(c.id))}
-                                  onChange={(e) => {
-                                    if (e.target.checked) {
-                                      const newSelected = Array.from(new Set([...selectedCandidates, ...filteredCandidates.map(c => c.id)]));
-                                      setSelectedCandidates(newSelected);
-                                    } else {
-                                      const filteredIds = filteredCandidates.map(c => c.id);
-                                      setSelectedCandidates(selectedCandidates.filter(id => !filteredIds.includes(id)));
-                                    }
-                                  }}
-                                  className="w-4 h-4 text-brand-primary border-gray-305 rounded focus:ring-brand-primary cursor-pointer"
-                                />
-                              </th>
-                            )}
+                            <th className="p-5 w-12">
+                              <input
+                                type="checkbox"
+                                checked={filteredCandidates.length > 0 && filteredCandidates.every(c => selectedCandidates.includes(c.id))}
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    const newSelected = Array.from(new Set([...selectedCandidates, ...filteredCandidates.map(c => c.id)]));
+                                    setSelectedCandidates(newSelected);
+                                  } else {
+                                    const filteredIds = filteredCandidates.map(c => c.id);
+                                    setSelectedCandidates(selectedCandidates.filter(id => !filteredIds.includes(id)));
+                                  }
+                                }}
+                                className="w-4 h-4 text-brand-primary border-gray-305 rounded focus:ring-brand-primary cursor-pointer"
+                              />
+                            </th>
                             <th className="p-5">Applicant</th>
                             <th className="p-5">Expertise</th>
                             <th className="p-5">Applied Date</th>
@@ -660,22 +658,20 @@ export default function AdminPage() {
                         <tbody className="divide-y divide-gray-150">
                           {filteredCandidates.map((candidate) => (
                             <tr key={candidate.id} className="hover:bg-gray-55 transition-colors">
-                              {adminRole === "super_admin" && (
-                                <td className="p-5">
-                                  <input
-                                    type="checkbox"
-                                    checked={selectedCandidates.includes(candidate.id)}
-                                    onChange={(e) => {
-                                      if (e.target.checked) {
-                                        setSelectedCandidates([...selectedCandidates, candidate.id]);
-                                      } else {
-                                        setSelectedCandidates(selectedCandidates.filter(id => id !== candidate.id));
-                                      }
-                                    }}
-                                    className="w-4 h-4 text-brand-primary border-gray-305 rounded focus:ring-brand-primary cursor-pointer"
-                                  />
-                                </td>
-                              )}
+                              <td className="p-5">
+                                <input
+                                  type="checkbox"
+                                  checked={selectedCandidates.includes(candidate.id)}
+                                  onChange={(e) => {
+                                    if (e.target.checked) {
+                                      setSelectedCandidates([...selectedCandidates, candidate.id]);
+                                    } else {
+                                      setSelectedCandidates(selectedCandidates.filter(id => id !== candidate.id));
+                                    }
+                                  }}
+                                  className="w-4 h-4 text-brand-primary border-gray-305 rounded focus:ring-brand-primary cursor-pointer"
+                                />
+                              </td>
                               <td className="p-5">
                                 <div className="flex flex-col">
                                   <span className="font-heading font-extrabold text-base text-gray-900">
@@ -738,20 +734,18 @@ export default function AdminPage() {
                         <Card key={candidate.id} className="p-5 border border-gray-100 bg-white shadow-sm rounded-2xl flex flex-col gap-4">
                           <div className="flex justify-between items-start">
                             <div className="flex items-start gap-3">
-                              {adminRole === "super_admin" && (
-                                <input
-                                  type="checkbox"
-                                  checked={selectedCandidates.includes(candidate.id)}
-                                  onChange={(e) => {
-                                    if (e.target.checked) {
-                                      setSelectedCandidates([...selectedCandidates, candidate.id]);
-                                    } else {
-                                      setSelectedCandidates(selectedCandidates.filter(id => id !== candidate.id));
-                                    }
-                                  }}
-                                  className="w-4 h-4 text-brand-primary border-gray-305 rounded focus:ring-brand-primary mt-1 cursor-pointer"
-                                />
-                              )}
+                              <input
+                                type="checkbox"
+                                checked={selectedCandidates.includes(candidate.id)}
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    setSelectedCandidates([...selectedCandidates, candidate.id]);
+                                  } else {
+                                    setSelectedCandidates(selectedCandidates.filter(id => id !== candidate.id));
+                                  }
+                                }}
+                                className="w-4 h-4 text-brand-primary border-gray-305 rounded focus:ring-brand-primary mt-1 cursor-pointer"
+                              />
                               <div className="flex flex-col">
                                 <span className="font-heading font-extrabold text-base text-gray-900">
                                   {candidate.firstName} {candidate.lastName}
