@@ -344,6 +344,61 @@ export default function AdminPage() {
     showToast("Exported successfully!");
   };
 
+  const handleExportLeadsCSV = (leadsToExport: Lead[]) => {
+    if (leadsToExport.length === 0) {
+      showToast("No client leads to export", "error");
+      return;
+    }
+
+    const headers = [
+      "First Name",
+      "Last Name",
+      "Email",
+      "Phone",
+      "Project Brief",
+      "Received Date"
+    ];
+
+    const rows = leadsToExport.map((l) => [
+      l.firstName,
+      l.lastName,
+      l.email,
+      l.phone || "",
+      l.project,
+      formatDate(l.createdAt)
+    ]);
+
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((row) =>
+        row
+          .map((val) => {
+            const escaped = String(val).replace(/"/g, '""');
+            return escaped.includes(",") || escaped.includes("\n") || escaped.includes('"')
+              ? `"${escaped}"`
+              : escaped;
+          })
+          .join(",")
+      ),
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    
+    const filename = selectedLeads.length > 0 
+      ? `selected_client_leads_${Date.now()}.csv`
+      : `all_client_leads_${Date.now()}.csv`;
+        
+    link.setAttribute("download", filename);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast("Leads exported successfully!");
+  };
+
   const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
     return d.toLocaleDateString("en-US", {
@@ -777,14 +832,25 @@ export default function AdminPage() {
                       Select All Leads
                     </label>
                   </div>
-                  {selectedLeads.length > 0 && (
+                  <div className="flex items-center gap-3">
                     <button
-                      onClick={() => handleDeleteLeads(selectedLeads)}
-                      className="inline-flex items-center gap-2 text-xs font-bold text-white bg-red-600 hover:bg-red-750 px-4.5 py-2.5 rounded-xl transition-all cursor-pointer shadow-sm"
+                      onClick={() => handleExportLeadsCSV(selectedLeads.length > 0 ? leads.filter(l => selectedLeads.includes(l.id)) : leads)}
+                      className="inline-flex items-center gap-2 text-xs font-heading font-black text-brand-primary hover:text-brand-secondary bg-white border border-brand-primary/20 hover:border-brand-primary px-4 py-2.5 rounded-xl transition-all cursor-pointer shadow-sm uppercase tracking-wider"
                     >
-                      <Trash2 className="w-4.5 h-4.5" /> Delete Selected ({selectedLeads.length})
+                      <Download className="w-4 h-4" />
+                      {selectedLeads.length > 0
+                        ? `Export Selected (${selectedLeads.length})`
+                        : "Export All"}
                     </button>
-                  )}
+                    {selectedLeads.length > 0 && (
+                      <button
+                        onClick={() => handleDeleteLeads(selectedLeads)}
+                        className="inline-flex items-center gap-2 text-xs font-bold text-white bg-red-600 hover:bg-red-750 px-4.5 py-2.5 rounded-xl transition-all cursor-pointer shadow-sm"
+                      >
+                        <Trash2 className="w-4.5 h-4.5" /> Delete Selected ({selectedLeads.length})
+                      </button>
+                    )}
+                  </div>
                 </div>
               )}
 
