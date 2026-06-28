@@ -93,7 +93,7 @@ export async function POST(req: Request) {
         const uploadResult = await new Promise<any>((resolve, reject) => {
           const uploadStream = cloudinary.uploader.upload_stream(
             {
-              resource_type: "auto", // Automatically detect file type (PDF, docx, etc.)
+              resource_type: "raw", // Store as raw file so it is served under /raw/upload/
               public_id: `resumes/${Date.now()}-${resumeFile.name.replace(/\s+/g, "-")}`,
             },
             (error, result) => {
