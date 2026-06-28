@@ -93,9 +93,8 @@ export async function POST(req: Request) {
         const uploadResult = await new Promise<any>((resolve, reject) => {
           const uploadStream = cloudinary.uploader.upload_stream(
             {
-              resource_type: "raw", // Required for PDFs and raw documents
-              public_id: `resumes/${Date.now()}-${resumeFile.name.replace(/\.[^/.]+$/, "").replace(/\s+/g, "-")}`,
-              format: "pdf",
+              resource_type: "auto", // Automatically detect file type (PDF, docx, etc.)
+              public_id: `resumes/${Date.now()}-${resumeFile.name.replace(/\s+/g, "-")}`,
             },
             (error, result) => {
               if (error) reject(error);
