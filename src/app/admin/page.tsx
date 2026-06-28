@@ -8,7 +8,7 @@ import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Users, Mail, Phone, Calendar, Briefcase, FileText, Lock, Plus, Trash2, Tag, Share2, ChevronDown } from "lucide-react";
+import { Users, Mail, Phone, Calendar, Briefcase, FileText, Lock, Plus, Trash2, Tag, Share2, ChevronDown, Download } from "lucide-react";
 import { showToast } from "@/lib/toast";
 
 interface Candidate {
@@ -55,6 +55,8 @@ export default function AdminPage() {
   const [jobs, setJobs] = React.useState<JobOpening[]>([]);
   const [adminRole, setAdminRole] = React.useState<"hr" | "super_admin" | null>(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = React.useState(false);
+  const [selectedCandidates, setSelectedCandidates] = React.useState<string[]>([]);
+  const [selectedLeads, setSelectedLeads] = React.useState<string[]>([]);
 
   // Add Job Form State
   const [newJobTitle, setNewJobTitle] = React.useState("");
@@ -217,6 +219,129 @@ export default function AdminPage() {
       setActionError(err.message);
       showToast(err.message, "error");
     }
+  };
+
+  const handleDeleteCandidates = async (ids: string[]) => {
+    if (ids.length === 0) return;
+    const confirmMsg = ids.length === 1
+      ? "Are you sure you want to delete this candidate application?"
+      : `Are you sure you want to delete these ${ids.length} candidate applications?`;
+    if (!window.confirm(confirmMsg)) return;
+
+    setActionError(null);
+    const savedPasscode = localStorage.getItem("devosphere_admin_passcode") || passcode;
+
+    try {
+      const res = await fetch(`/api/admin/candidates?ids=${ids.join(",")}`, {
+        method: "DELETE",
+        headers: {
+          "x-admin-passcode": savedPasscode,
+        },
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to delete candidates.");
+      }
+
+      setCandidates(candidates.filter((c) => !ids.includes(c.id)));
+      setSelectedCandidates([]);
+      showToast(ids.length === 1 ? "Candidate deleted!" : `${ids.length} candidates deleted!`);
+    } catch (err: any) {
+      setActionError(err.message);
+      showToast(err.message, "error");
+    }
+  };
+
+  const handleDeleteLeads = async (ids: string[]) => {
+    if (ids.length === 0) return;
+    const confirmMsg = ids.length === 1
+      ? "Are you sure you want to delete this client lead?"
+      : `Are you sure you want to delete these ${ids.length} client leads?`;
+    if (!window.confirm(confirmMsg)) return;
+
+    setActionError(null);
+    const savedPasscode = localStorage.getItem("devosphere_admin_passcode") || passcode;
+
+    try {
+      const res = await fetch(`/api/admin/leads?ids=${ids.join(",")}`, {
+        method: "DELETE",
+        headers: {
+          "x-admin-passcode": savedPasscode,
+        },
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Failed to delete client leads.");
+      }
+
+      setLeads(leads.filter((l) => !ids.includes(l.id)));
+      setSelectedLeads([]);
+      showToast(ids.length === 1 ? "Client lead deleted!" : `${ids.length} client leads deleted!`);
+    } catch (err: any) {
+      setActionError(err.message);
+      showToast(err.message, "error");
+    }
+  };
+
+  const handleExportCSV = (candidatesToExport: Candidate[]) => {
+    if (candidatesToExport.length === 0) {
+      showToast("No candidates to export", "error");
+      return;
+    }
+
+    const headers = [
+      "First Name",
+      "Last Name",
+      "Email",
+      "Phone",
+      "Role (Expertise)",
+      "Applied Date",
+      "Resume URL"
+    ];
+
+    const rows = candidatesToExport.map((c) => [
+      c.firstName,
+      c.lastName,
+      c.email,
+      c.phone || "",
+      c.role,
+      formatDate(c.createdAt),
+      c.resumeUrl
+    ]);
+
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((row) =>
+        row
+          .map((val) => {
+            const escaped = String(val).replace(/"/g, '""');
+            return escaped.includes(",") || escaped.includes("\n") || escaped.includes('"')
+              ? `"${escaped}"`
+              : escaped;
+          })
+          .join(",")
+      ),
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    
+    const filename = selectedCandidates.length > 0 
+      ? `selected_candidates_${Date.now()}.csv`
+      : candidateFilter 
+        ? `candidates_${candidateFilter.replace(/\s+/g, "_").toLowerCase()}_${Date.now()}.csv`
+        : `all_candidates_${Date.now()}.csv`;
+        
+    link.setAttribute("download", filename);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast("Exported successfully!");
   };
 
   const formatDate = (dateStr: string) => {
@@ -415,11 +540,62 @@ export default function AdminPage() {
 
                 return (
                   <>
+                    {/* Bulk Action Bar for Candidates */}
+                    {adminRole === "super_admin" && selectedCandidates.length > 0 && (
+                      <div className="flex items-center justify-between bg-red-50 border border-red-200 rounded-2xl p-4 mb-2 text-left animate-fade-in">
+                        <span className="text-sm font-semibold text-red-850">
+                          {selectedCandidates.length} candidate{selectedCandidates.length > 1 ? "s" : ""} selected
+                        </span>
+                        <button
+                          onClick={() => handleDeleteCandidates(selectedCandidates)}
+                          className="inline-flex items-center gap-2 text-xs font-bold text-white bg-red-600 hover:bg-red-750 px-4 py-2 rounded-xl transition-all cursor-pointer shadow-sm"
+                        >
+                          <Trash2 className="w-4 h-4" /> Delete Selected
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Table Header Action Row */}
+                    <div className="flex justify-between items-center mb-4 bg-gray-50/50 border border-gray-200 rounded-2xl px-5 py-3.5">
+                      <Text size="sm" variant="muted" className="font-bold">
+                        Showing {filteredCandidates.length} candidate{filteredCandidates.length !== 1 ? "s" : ""}
+                      </Text>
+                      <button
+                        onClick={() => handleExportCSV(selectedCandidates.length > 0 ? candidates.filter(c => selectedCandidates.includes(c.id)) : filteredCandidates)}
+                        className="inline-flex items-center gap-2 text-xs font-heading font-black text-brand-primary hover:text-brand-secondary bg-white border border-brand-primary/20 hover:border-brand-primary px-4 py-2.5 rounded-xl transition-all cursor-pointer shadow-sm uppercase tracking-wider"
+                      >
+                        <Download className="w-4 h-4" />
+                        {selectedCandidates.length > 0
+                          ? `Export Selected (${selectedCandidates.length})`
+                          : candidateFilter
+                            ? "Export Filtered"
+                            : "Export All"}
+                      </button>
+                    </div>
+
                     {/* Desktop Table View */}
                     <div className="hidden md:block overflow-x-auto bg-white border border-gray-200 rounded-2xl shadow-sm">
                       <table className="w-full text-left border-collapse">
                         <thead>
                           <tr className="bg-gray-50 border-b border-gray-200 text-xs font-heading font-black text-gray-400 uppercase tracking-wider">
+                            {adminRole === "super_admin" && (
+                              <th className="p-5 w-12">
+                                <input
+                                  type="checkbox"
+                                  checked={filteredCandidates.length > 0 && filteredCandidates.every(c => selectedCandidates.includes(c.id))}
+                                  onChange={(e) => {
+                                    if (e.target.checked) {
+                                      const newSelected = Array.from(new Set([...selectedCandidates, ...filteredCandidates.map(c => c.id)]));
+                                      setSelectedCandidates(newSelected);
+                                    } else {
+                                      const filteredIds = filteredCandidates.map(c => c.id);
+                                      setSelectedCandidates(selectedCandidates.filter(id => !filteredIds.includes(id)));
+                                    }
+                                  }}
+                                  className="w-4 h-4 text-brand-primary border-gray-305 rounded focus:ring-brand-primary cursor-pointer"
+                                />
+                              </th>
+                            )}
                             <th className="p-5">Applicant</th>
                             <th className="p-5">Expertise</th>
                             <th className="p-5">Applied Date</th>
@@ -428,20 +604,36 @@ export default function AdminPage() {
                         </thead>
                         <tbody className="divide-y divide-gray-150">
                           {filteredCandidates.map((candidate) => (
-                            <tr key={candidate.id} className="hover:bg-gray-50/50 transition-colors">
+                            <tr key={candidate.id} className="hover:bg-gray-55 transition-colors">
+                              {adminRole === "super_admin" && (
+                                <td className="p-5">
+                                  <input
+                                    type="checkbox"
+                                    checked={selectedCandidates.includes(candidate.id)}
+                                    onChange={(e) => {
+                                      if (e.target.checked) {
+                                        setSelectedCandidates([...selectedCandidates, candidate.id]);
+                                      } else {
+                                        setSelectedCandidates(selectedCandidates.filter(id => id !== candidate.id));
+                                      }
+                                    }}
+                                    className="w-4 h-4 text-brand-primary border-gray-305 rounded focus:ring-brand-primary cursor-pointer"
+                                  />
+                                </td>
+                              )}
                               <td className="p-5">
                                 <div className="flex flex-col">
                                   <span className="font-heading font-extrabold text-base text-gray-900">
                                     {candidate.firstName} {candidate.lastName}
                                   </span>
-                                  <div className="flex items-center gap-4 text-xs text-gray-500 mt-1">
-                                    <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5" /> {candidate.email}</span>
-                                    {candidate.phone && <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5" /> {candidate.phone}</span>}
+                                  <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 mt-1">
+                                    <span className="flex items-center gap-1 whitespace-nowrap"><Mail className="w-3.5 h-3.5" /> {candidate.email}</span>
+                                    {candidate.phone && <span className="flex items-center gap-1 whitespace-nowrap"><Phone className="w-3.5 h-3.5" /> {candidate.phone}</span>}
                                   </div>
                                 </div>
                               </td>
                               <td className="p-5">
-                                <span className="bg-brand-primary/10 text-brand-primary border border-brand-primary/20 px-3 py-1 rounded text-xs font-semibold uppercase tracking-wider">
+                                <span className="bg-brand-primary/10 text-brand-primary border border-brand-primary/20 px-3 py-1 rounded text-xs font-semibold uppercase tracking-wider whitespace-nowrap">
                                   {candidate.role}
                                 </span>
                               </td>
@@ -469,6 +661,15 @@ export default function AdminPage() {
                                 >
                                   <FileText className="w-4 h-4" /> Resume
                                 </a>
+                                {adminRole === "super_admin" && (
+                                  <button
+                                    onClick={() => handleDeleteCandidates([candidate.id])}
+                                    className="text-gray-400 hover:text-red-600 hover:bg-red-50 p-2 rounded-xl transition-all cursor-pointer border border-transparent hover:border-red-100"
+                                    title="Delete candidate"
+                                  >
+                                    <Trash2 className="w-4 h-4" />
+                                  </button>
+                                )}
                               </td>
                             </tr>
                           ))}
@@ -481,20 +682,47 @@ export default function AdminPage() {
                       {filteredCandidates.map((candidate) => (
                         <Card key={candidate.id} className="p-5 border border-gray-100 bg-white shadow-sm rounded-2xl flex flex-col gap-4">
                           <div className="flex justify-between items-start">
-                            <div className="flex flex-col">
-                              <span className="font-heading font-extrabold text-base text-gray-900">
-                                {candidate.firstName} {candidate.lastName}
-                              </span>
-                              <span className="text-xs text-gray-400 mt-0.5">Applied: {formatDate(candidate.createdAt)}</span>
+                            <div className="flex items-start gap-3">
+                              {adminRole === "super_admin" && (
+                                <input
+                                  type="checkbox"
+                                  checked={selectedCandidates.includes(candidate.id)}
+                                  onChange={(e) => {
+                                    if (e.target.checked) {
+                                      setSelectedCandidates([...selectedCandidates, candidate.id]);
+                                    } else {
+                                      setSelectedCandidates(selectedCandidates.filter(id => id !== candidate.id));
+                                    }
+                                  }}
+                                  className="w-4 h-4 text-brand-primary border-gray-305 rounded focus:ring-brand-primary mt-1 cursor-pointer"
+                                />
+                              )}
+                              <div className="flex flex-col">
+                                <span className="font-heading font-extrabold text-base text-gray-900">
+                                  {candidate.firstName} {candidate.lastName}
+                                </span>
+                                <span className="text-xs text-gray-400 mt-0.5">Applied: {formatDate(candidate.createdAt)}</span>
+                              </div>
                             </div>
-                            <span className="bg-brand-primary/10 text-brand-primary border border-brand-primary/20 px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
-                              {candidate.role}
-                            </span>
+                            <div className="flex items-center gap-2">
+                              <span className="bg-brand-primary/10 text-brand-primary border border-brand-primary/20 px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">
+                                {candidate.role}
+                              </span>
+                              {adminRole === "super_admin" && (
+                                <button
+                                  onClick={() => handleDeleteCandidates([candidate.id])}
+                                  className="text-gray-400 hover:text-red-600 p-1 rounded-lg hover:bg-red-50 transition-all"
+                                  title="Delete candidate"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+                              )}
+                            </div>
                           </div>
                           
-                          <div className="flex flex-col gap-1.5 text-xs text-gray-600 border-t border-b border-gray-100 py-3">
-                            <span className="flex items-center gap-2"><Mail className="w-3.5 h-3.5 text-gray-400" /> {candidate.email}</span>
-                            {candidate.phone && <span className="flex items-center gap-2"><Phone className="w-3.5 h-3.5 text-gray-400" /> {candidate.phone}</span>}
+                          <div className="flex flex-wrap items-center gap-2 text-xs text-gray-600 border-t border-b border-gray-100 py-3">
+                            <span className="flex items-center gap-2 whitespace-nowrap"><Mail className="w-3.5 h-3.5 text-gray-400" /> {candidate.email}</span>
+                            {candidate.phone && <span className="flex items-center gap-2 whitespace-nowrap"><Phone className="w-3.5 h-3.5 text-gray-400" /> {candidate.phone}</span>}
                           </div>
 
                           <div className="grid grid-cols-3 gap-2">
@@ -528,6 +756,38 @@ export default function AdminPage() {
             </div>
           ) : activeTab === "leads" && adminRole === "super_admin" ? (
             <div className="flex flex-col gap-5 text-left">
+              {/* Bulk Action Bar for Client Leads */}
+              {adminRole === "super_admin" && (
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4 border-b border-gray-200 pb-4 mb-2">
+                  <div className="flex items-center gap-3">
+                    <input
+                      type="checkbox"
+                      id="selectAllLeads"
+                      checked={leads.length > 0 && leads.every(l => selectedLeads.includes(l.id))}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedLeads(leads.map(l => l.id));
+                        } else {
+                          setSelectedLeads([]);
+                        }
+                      }}
+                      className="w-4 h-4 text-brand-primary border-gray-305 rounded focus:ring-brand-primary cursor-pointer"
+                    />
+                    <label htmlFor="selectAllLeads" className="text-sm font-bold text-gray-600 cursor-pointer select-none">
+                      Select All Leads
+                    </label>
+                  </div>
+                  {selectedLeads.length > 0 && (
+                    <button
+                      onClick={() => handleDeleteLeads(selectedLeads)}
+                      className="inline-flex items-center gap-2 text-xs font-bold text-white bg-red-600 hover:bg-red-750 px-4.5 py-2.5 rounded-xl transition-all cursor-pointer shadow-sm"
+                    >
+                      <Trash2 className="w-4.5 h-4.5" /> Delete Selected ({selectedLeads.length})
+                    </button>
+                  )}
+                </div>
+              )}
+
               {leads.length === 0 ? (
                 <Card className="p-16 border border-dashed border-gray-200 text-center bg-white rounded-3xl flex flex-col items-center justify-center gap-2">
                   <Briefcase className="w-10 h-10 text-gray-300" />
@@ -540,7 +800,23 @@ export default function AdminPage() {
                       {/* Client Info Block */}
                       <div className="flex flex-col md:w-1/3 border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-8 text-left justify-between">
                         <div>
-                          <span className="text-[10px] font-heading font-black text-brand-primary uppercase tracking-wider block mb-1.5">Client Partner</span>
+                          <div className="flex items-center gap-3 mb-1.5">
+                            {adminRole === "super_admin" && (
+                              <input
+                                type="checkbox"
+                                checked={selectedLeads.includes(lead.id)}
+                                onChange={(e) => {
+                                  if (e.target.checked) {
+                                    setSelectedLeads([...selectedLeads, lead.id]);
+                                  } else {
+                                    setSelectedLeads(selectedLeads.filter(id => id !== lead.id));
+                                  }
+                                }}
+                                className="w-4 h-4 text-brand-primary border-gray-305 rounded focus:ring-brand-primary cursor-pointer"
+                              />
+                            )}
+                            <span className="text-[10px] font-heading font-black text-brand-primary uppercase tracking-wider block">Client Partner</span>
+                          </div>
                           <h4 className="font-heading font-extrabold text-lg text-gray-900 leading-snug">
                             {lead.firstName} {lead.lastName}
                           </h4>
@@ -555,7 +831,7 @@ export default function AdminPage() {
                               <Phone className="w-4 h-4 text-gray-400" /> {lead.phone}
                             </a>
                           )}
-                          <span className="flex items-center gap-2 text-gray-400 mt-1.5 border-t border-gray-50 pt-2.5">
+                          <span className="flex items-center gap-2 text-gray-400 mt-1.5 border-t border-gray-55 pt-2.5">
                             <Calendar className="w-4 h-4" /> Received: {formatDate(lead.createdAt)}
                           </span>
                         </div>
@@ -565,12 +841,21 @@ export default function AdminPage() {
                       <div className="flex-1 text-left flex flex-col justify-between pl-0 md:pl-2">
                         <div>
                           <span className="text-[10px] font-heading font-black text-gray-400 uppercase tracking-wider block mb-2.5">Project Brief & Requirements</span>
-                          <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap font-medium bg-gray-50/50 border border-gray-100 p-4 rounded-xl">
+                          <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-wrap font-medium bg-gray-50/50 border border-gray-105 p-4 rounded-xl">
                             {lead.project}
                           </p>
                         </div>
                         
                         <div className="flex items-center justify-end gap-3 mt-6">
+                          {adminRole === "super_admin" && (
+                            <button
+                              onClick={() => handleDeleteLeads([lead.id])}
+                              className="text-gray-400 hover:text-red-600 p-2.5 rounded-xl hover:bg-red-50 transition-all cursor-pointer border border-gray-100 hover:border-red-100"
+                              title="Delete lead"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          )}
                           <a
                             href={`mailto:${lead.email}?subject=Regarding%20your%20Devosphere%20inquiry`}
                             className="inline-flex items-center gap-2 text-xs font-bold text-white bg-brand-primary hover:bg-brand-secondary px-4.5 py-2.5 rounded-xl transition-all shadow-sm cursor-pointer hover:-translate-y-0.5 duration-200"
